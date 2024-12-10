@@ -36,8 +36,11 @@
 				trucksTotalHorsePower += Convert.ToDouble(array[3]);
 			}
 
+			bool isTrue = true;
+
 			while (array[0] != "End")
 			{
+				isTrue = true;
 				array = Console.ReadLine().Split(" ").ToArray();
 
 				if (array[0] != "End")
@@ -45,20 +48,24 @@
 					if (array[0] == "car" || array[0] == "truck")
 					{
 						list.Add(new Vehicle { Type = array[0], Model = array[1], Color = array[2], HorsePower = Convert.ToDouble(array[3]) });
-						for (int i = 0; i < list.Count; i++)
+						for (int i = 0; i < list.Count - 1; i++)
 						{
 							if (list[i].Model == array[1])
 							{
-								break;
+								isTrue = false;
+								list.Reverse();
+								list.RemoveAt(0);
+								list.Reverse();
+								continue;
 							}
 						}
 					}
-					if (array[0] == "car")
+					if (array[0] == "car" && isTrue == true)
 					{
 						carsHorsePowerCount++;
 						carsTotalHorsePower += Convert.ToDouble(array[3]);
 					}
-					else if (array[0] == "truck")
+					else if (array[0] == "truck" && isTrue == true)
 					{
 						trucksHorsePowerCount++;
 						trucksTotalHorsePower += Convert.ToDouble(array[3]);
@@ -90,9 +97,23 @@
 				input = Console.ReadLine();
 			}
 
-			Console.WriteLine($"Cars have average horsepower of: {carsTotalHorsePower / carsHorsePowerCount:f2}.");
+			if (carsHorsePowerCount > 0)
+			{
+				Console.WriteLine($"Cars have average horsepower of: {carsTotalHorsePower / carsHorsePowerCount:f2}.");
+			}
+			else
+			{
+				Console.WriteLine($"Cars have average horsepower of: 0.00.");
+			}
 
-			Console.WriteLine($"Trucks have average horsepower of: {trucksTotalHorsePower / trucksHorsePowerCount:f2}.");
+			if (trucksHorsePowerCount > 0)
+			{
+				Console.WriteLine($"Trucks have average horsepower of: {trucksTotalHorsePower / trucksHorsePowerCount:f2}.");
+			}
+			else
+			{
+				Console.WriteLine($"Trucks have average horsepower of: 0.00.");
+			}
 
 		}
 

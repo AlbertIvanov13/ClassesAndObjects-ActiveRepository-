@@ -52,6 +52,7 @@ namespace _5._TeamWorkProjects
 			bool isFoundTeamName = false;
 			bool isFoundUserName = false;
 
+
 			string[] members = { };
 			joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
 
@@ -80,11 +81,13 @@ namespace _5._TeamWorkProjects
 						if (teams[i].User == joining[j].User)
 						{
 							Console.WriteLine($"{teams[i].User} cannot create another team!");
+							break;
 						}
 
 						if (joining[j].User == teams[i].User && joining[j].TeamName == teams[i].TeamName)
 						{
 							Console.WriteLine($"Member {joining[j].User} cannot join team {teams[i].TeamName}!");
+							break;
 						}
 					}
 					else
@@ -93,6 +96,37 @@ namespace _5._TeamWorkProjects
 						{
                             Console.WriteLine($"Team {joining[j].TeamName} does not exist!");
 						}
+					}
+				}
+			}
+
+			bool isDisband = false;
+
+			for (int i = 0; i < teams.Count; i++)
+			{
+				for (int j = 0; j < joining.Count; j++)
+				{
+					if (joining[j].User == teams[i].User && joining[j].TeamName == teams[i].TeamName)
+					{
+						isDisband = true;
+					}
+					else if (joining[j].User != teams[i].User)
+					{
+						Console.WriteLine($"{teams[i].TeamName}");
+						Console.WriteLine($"- {teams[i].User}");
+						for (int k = 0; k < joining.Count; k++)
+						{
+							Console.WriteLine($"-- {joining[i].User}");
+							break;
+						}
+					}
+					i++;
+					//break;
+
+					if (isDisband)
+					{
+						Console.WriteLine("Teams to disband:");
+						Console.WriteLine($"{joining[j].TeamName}");
 					}
 				}
 			}

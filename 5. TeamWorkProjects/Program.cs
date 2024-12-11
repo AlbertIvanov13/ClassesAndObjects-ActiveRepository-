@@ -1,4 +1,6 @@
-﻿namespace _5._TeamWorkProjects
+﻿using System;
+
+namespace _5._TeamWorkProjects
 {
 	internal class Program
 	{
@@ -15,9 +17,8 @@
 			List<CreatingTeam> teams = new List<CreatingTeam>();
 			teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
 
-			for (int i = 0; i < registeredTeamCount; i++)
+			for (int i = 0; i < registeredTeamCount - 1; i++)
 			{
-				Console.WriteLine(teams[i].ToString());
 				teamCreation = Console.ReadLine().Split("-").ToArray();
 				teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
 				for (int j = 0; j < teams.Count; j++)
@@ -33,15 +34,41 @@
 
 			newArray = Console.ReadLine().Split("->").ToArray();
 
+			bool isFoundTeamName = false;
+			bool isFoundUserName = false;
+
+			string[] members = { };
+
 			while (newArray[0] != "end of assignment")
 			{
-				for (int i = 0; i < teams.Count; i++)
+				newArray = Console.ReadLine().Split("->").ToArray();
+			}
+
+			for (int i = 0; i < teams.Count; i++)
+			{
+				Console.WriteLine(teams[i].ToString());
+				if (teams[i].User == newArray[0])
 				{
-					if (teams[i].User == newArray[0])
-					{
-						Console.WriteLine($"{teams[i]} user cannot create another team!");
-					}
+					Console.WriteLine($"{teams[i].User} cannot create another team!");
+					break;
 				}
+
+				if (i == teams.Count)
+				{
+					Console.WriteLine($"Team {teams[i].TeamName} does not exist!");
+				}
+
+				if (teams[i].User == newArray[0])
+				{
+					isFoundUserName = true;
+				}
+
+				if (isFoundUserName)
+				{
+					Console.WriteLine($"Member {teams[i].User} cannot join team {newArray[1]}");
+				}
+
+				
 			}
 		}
 

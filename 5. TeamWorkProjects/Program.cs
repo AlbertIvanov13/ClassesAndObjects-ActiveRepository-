@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace _5._TeamWorkProjects
 {
@@ -9,24 +10,38 @@ namespace _5._TeamWorkProjects
 			int registeredTeamCount = int.Parse(Console.ReadLine());
 
 			CreatingTeam team = new CreatingTeam();
+			JoiningUser join = new JoiningUser();
 
 			string[] teamCreation = { };
 
 			teamCreation = Console.ReadLine().Split("-").ToArray();
 
 			List<CreatingTeam> teams = new List<CreatingTeam>();
+			List<JoiningUser> joining = new List<JoiningUser>();
 			teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
+
+			int encounter = 0;
 
 			for (int i = 0; i < registeredTeamCount - 1; i++)
 			{
 				teamCreation = Console.ReadLine().Split("-").ToArray();
-				teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
 				for (int j = 0; j < teams.Count; j++)
 				{
-					if (teams[i].TeamName == teamCreation[1])
+					if (teams[j].TeamName == teamCreation[1])
 					{
-                        Console.WriteLine($"Team {teams[i].TeamName} was already created!");
+						encounter++;
 					}
+
+					if (encounter > 1)
+					{
+						Console.WriteLine($"Team {joining[i].TeamName} was already created!");
+					}
+					else
+					{
+						teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
+						encounter = 0;
+					}
+					break;
 				}
 			}
 
@@ -38,37 +53,48 @@ namespace _5._TeamWorkProjects
 			bool isFoundUserName = false;
 
 			string[] members = { };
+			joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
 
 			while (newArray[0] != "end of assignment")
 			{
 				newArray = Console.ReadLine().Split("->").ToArray();
+				if (newArray[0] != "end of assignment")
+				{
+					joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
+				}
 			}
 
 			for (int i = 0; i < teams.Count; i++)
 			{
 				Console.WriteLine(teams[i].ToString());
-				if (teams[i].User == newArray[0])
-				{
-					Console.WriteLine($"{teams[i].User} cannot create another team!");
-					break;
-				}
 
-				if (i == teams.Count)
+				for (int j = 0; j < joining.Count; j++)
 				{
-					Console.WriteLine($"Team {teams[i].TeamName} does not exist!");
-				}
+					if (joining[j].TeamName == teams[i].TeamName)
+					{
+						//if (joining[j].TeamName == teams[i].TeamName)
+						//{
+						//	Console.WriteLine($"Team {joining[i].TeamName} was already created!");
+						//}
 
-				if (teams[i].User == newArray[0])
-				{
-					isFoundUserName = true;
-				}
+						if (teams[i].User == joining[j].User)
+						{
+							Console.WriteLine($"{teams[i].User} cannot create another team!");
+						}
 
-				if (isFoundUserName)
-				{
-					Console.WriteLine($"Member {teams[i].User} cannot join team {newArray[1]}");
+						if (joining[j].User == teams[i].User && joining[j].TeamName == teams[i].TeamName)
+						{
+							Console.WriteLine($"Member {joining[j].User} cannot join team {teams[i].TeamName}!");
+						}
+					}
+					else
+					{
+						if (i == teams.Count)
+						{
+                            Console.WriteLine($"Team {joining[j].TeamName} does not exist!");
+						}
+					}
 				}
-
-				
 			}
 		}
 
@@ -81,6 +107,12 @@ namespace _5._TeamWorkProjects
 			{
 				return $"Team {TeamName} has been created by {User}!";
 			}
+		}
+
+		public class JoiningUser
+		{
+			public string User { get; set; }
+			public string TeamName { get; set; }
 		}
 	}
 }

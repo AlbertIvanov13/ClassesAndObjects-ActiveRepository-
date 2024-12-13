@@ -19,34 +19,54 @@ namespace _5._TeamWorkProjects
 			List<CreatingTeam> teams = new List<CreatingTeam>();
 			List<JoiningUser> joining = new List<JoiningUser>();
 			teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
+			Console.WriteLine(teams[0].ToString());
 
 			int encounter = 1;
+			int n = 0;
+			bool isNotFound = false;
 
-			for (int i = 0; i < registeredTeamCount - 1; i++)
+			for (int i = 1; i < registeredTeamCount; i++)
 			{
-				teamCreation = Console.ReadLine().Split("-").ToArray();
-				for (int j = 0; j < teams.Count; j++)
+				for (int j = n; j < teams.Count; j++)
 				{
-					if (teams[j].TeamName == teamCreation[1])
+					if (teams.Contains(teams[j]))
 					{
-						encounter++;
-					}
-
-					if (encounter > 1)
-					{
-						Console.WriteLine($"Team {teams[i].TeamName} was already created!");
-						encounter = 0;
+                        Console.WriteLine($"Team {teams[j].TeamName} already exists!");
+						n++;
 					}
 					else
 					{
 						teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
-						encounter = 0;
-						Console.WriteLine(teams[i].ToString());
+						Console.WriteLine(teams[j].ToString());
+						n++;
 					}
-					break;
 				}
 			}
 
+			//for (int i = 0; i < registeredTeamCount - 1; i++)
+			//{
+			//	teamCreation = Console.ReadLine().Split("-").ToArray();
+			//	for (int j = 0; j < teams.Count; j++)
+			//	{
+			//		if (teams[j].TeamName == teamCreation[1])
+			//		{
+			//			encounter++;
+			//		}
+
+			//		if (encounter > 1)
+			//		{
+			//			Console.WriteLine($"Team {teams[i].TeamName} was already created!");
+			//			encounter = 0;
+			//		}
+			//		else
+			//		{
+			//			teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
+			//			encounter = 0;
+			//			Console.WriteLine(teams[i].ToString());
+			//		}
+			//		break;
+			//	}
+			//}
 			string[] newArray = { };
 
 			newArray = Console.ReadLine().Split("->").ToArray();
@@ -56,23 +76,27 @@ namespace _5._TeamWorkProjects
 
 			bool isTrue = false;
 
+			int counter = 0;
+
 			string[] members = { };
 			joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
 
 			for (int i = 0; i < teams.Count; i++)
 			{
-				if (i == teams.Count - 1)
-				{
-					isTrue = true;
-				}
-
 				for (int j = 0; j < joining.Count; j++)
 				{
-					if (teams[i].TeamName != joining[j].TeamName && isTrue)
+					if (teams[i].TeamName == joining[j].TeamName)
+					{
+						joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
+						break;
+					}
+					else
 					{
 						Console.WriteLine($"Team {joining[j].TeamName} does not exist!");
+						break;
 					}
 				}
+				break;
 			}
 
 			while (newArray[0] != "end of assignment")
@@ -81,16 +105,17 @@ namespace _5._TeamWorkProjects
 				if (newArray[0] != "end of assignment")
 				{
 					joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
+
 					for (int i = 0; i < teams.Count; i++)
 					{
-						if (i == teams.Count - 1)
-						{
-							isTrue = true;
-						}
-
 						for (int j = 0; j < joining.Count; j++)
 						{
-							if (teams[i].TeamName != joining[j].TeamName && isTrue)
+							if (teams[i].TeamName != joining[j].TeamName)
+							{
+								counter++;
+							}
+
+							if (counter == joining.Count)
 							{
 								Console.WriteLine($"Team {joining[j].TeamName} does not exist!");
 							}

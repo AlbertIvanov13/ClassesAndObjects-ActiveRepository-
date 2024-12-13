@@ -27,46 +27,27 @@ namespace _5._TeamWorkProjects
 
 			for (int i = 1; i < registeredTeamCount; i++)
 			{
-				for (int j = n; j < teams.Count; j++)
+				teamCreation = Console.ReadLine().Split("-").ToArray();
+				string user = teamCreation[0];
+				string teamName = teamCreation[1];
+
+				for (int j = 0; j < teams.Count; j++)
 				{
-					if (teams.Contains(teams[j]))
+					if (!(teams[j].TeamName == teamName))
 					{
-                        Console.WriteLine($"Team {teams[j].TeamName} already exists!");
-						n++;
+						teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
+						Console.WriteLine($"Team {teamName} has been created by {user}!");
+						break;
 					}
 					else
 					{
-						teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
-						Console.WriteLine(teams[j].ToString());
-						n++;
+						Console.WriteLine($"Team {teamName} was already created!");
+						break;
 					}
 				}
+
 			}
 
-			//for (int i = 0; i < registeredTeamCount - 1; i++)
-			//{
-			//	teamCreation = Console.ReadLine().Split("-").ToArray();
-			//	for (int j = 0; j < teams.Count; j++)
-			//	{
-			//		if (teams[j].TeamName == teamCreation[1])
-			//		{
-			//			encounter++;
-			//		}
-
-			//		if (encounter > 1)
-			//		{
-			//			Console.WriteLine($"Team {teams[i].TeamName} was already created!");
-			//			encounter = 0;
-			//		}
-			//		else
-			//		{
-			//			teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
-			//			encounter = 0;
-			//			Console.WriteLine(teams[i].ToString());
-			//		}
-			//		break;
-			//	}
-			//}
 			string[] newArray = { };
 
 			newArray = Console.ReadLine().Split("->").ToArray();

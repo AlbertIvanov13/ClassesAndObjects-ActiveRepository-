@@ -82,8 +82,11 @@ namespace _5._TeamWorkProjects
 
 			bool isCreator = false;
 
+			List<string> newUsers = new List<string>();
+
 			foreach (var newTeam in teams)
 			{
+				newUsers = new List<string>();
 				isCreator = false;
 				Console.WriteLine(newTeam.TeamName);
 				foreach (var newUser in joining)
@@ -99,9 +102,14 @@ namespace _5._TeamWorkProjects
 					{
 						if (newUser.TeamName == newTeam.TeamName)
 						{
-							Console.WriteLine($"--{newUser.User}");
+							newUsers.Add(newUser.User);
 						}
 					}
+				}
+				var orderedUserNames = newUsers.OrderBy(x => newUsers[0]).ToList();
+				foreach (var user in orderedUserNames)
+				{
+					Console.WriteLine($"--{user}");
 				}
 			}
 		}

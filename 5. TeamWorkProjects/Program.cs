@@ -69,7 +69,7 @@ namespace _5._TeamWorkProjects
 					}
 					else if (isCreatorExisting)
 					{
-						Console.WriteLine($"Member {newUser} cannot join team {newTeamName}");
+						Console.WriteLine($"Member {newUser} cannot join team {newTeamName}!");
 						break;
 					}
 					else
@@ -82,6 +82,7 @@ namespace _5._TeamWorkProjects
 
 			bool isCreator = false;
 
+			List<string> orderingTeams = new List<string>();
 			List<string> newUsers = new List<string>();
 
 			foreach (var newTeam in teams)
@@ -94,7 +95,7 @@ namespace _5._TeamWorkProjects
 					if (newUser.TeamName == newTeam.TeamName && isCreator == false)
 					{
 						isCreator = true;
-						Console.WriteLine($"-{newUser.User}");
+						Console.WriteLine($"- {newUser.User}");
 						continue;
 					}
 
@@ -109,9 +110,11 @@ namespace _5._TeamWorkProjects
 				var orderedUserNames = newUsers.OrderBy(x => newUsers[0]).ToList();
 				foreach (var user in orderedUserNames)
 				{
-					Console.WriteLine($"--{user}");
+					Console.WriteLine($"-- {user}");
 				}
 			}
+
+            Console.WriteLine("Teams to disband: ");
 		}
 	}
 

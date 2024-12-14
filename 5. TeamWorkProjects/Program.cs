@@ -40,9 +40,38 @@ namespace _5._TeamWorkProjects
 				}
 			}
 
-			string[] newArray = { };
+			while (true)
+			{
+				string[] newArray = { };
 
-			newArray = Console.ReadLine().Split("->").ToArray();
+				string input = Console.ReadLine();
+
+				if (input == "end of assignment")
+				{
+					break;
+				}
+
+				newArray = input.Split("->").ToArray();
+
+				string newUser = newArray[0];
+				string newTeamName = newArray[1];
+
+				for (int i = 0; i < teams.Count; i++)
+				{
+					bool isTeamExisting = teams.Select(x => x.TeamName).Contains(newTeamName);
+
+					if (!isTeamExisting)
+					{
+						Console.WriteLine($"Team {newTeamName} does not exist!");
+						break;
+					}
+					else
+					{
+						joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
+						break;
+					}
+				}
+			}
 
 		}
 	}

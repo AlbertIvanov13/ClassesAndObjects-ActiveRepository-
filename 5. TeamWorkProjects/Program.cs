@@ -59,10 +59,16 @@ namespace _5._TeamWorkProjects
 				for (int i = 0; i < teams.Count; i++)
 				{
 					bool isTeamExisting = teams.Select(x => x.TeamName).Contains(newTeamName);
+					bool isCreatorExisting = teams.Select(x => x.User).Contains(newUser);
 
 					if (!isTeamExisting)
 					{
 						Console.WriteLine($"Team {newTeamName} does not exist!");
+						break;
+					}
+					else if (isCreatorExisting)
+					{
+						Console.WriteLine($"Member {newUser} cannot join team {newTeamName}");
 						break;
 					}
 					else
@@ -71,25 +77,27 @@ namespace _5._TeamWorkProjects
 						break;
 					}
 				}
-			}
 
+
+
+			}
 		}
 	}
-}
 
-public class CreatingTeam
-{
-	public string User { get; set; }
-	public string TeamName { get; set; }
-
-	public override string ToString()
+	public class CreatingTeam
 	{
-		return $"Team {TeamName} has been created by {User}!";
-	}
-}
+		public string User { get; set; }
+		public string TeamName { get; set; }
 
-public class JoiningUser
-{
-	public string User { get; set; }
-	public string TeamName { get; set; }
+		public override string ToString()
+		{
+			return $"Team {TeamName} has been created by {User}!";
+		}
+	}
+
+	public class JoiningUser
+	{
+		public string User { get; set; }
+		public string TeamName { get; set; }
+	}
 }

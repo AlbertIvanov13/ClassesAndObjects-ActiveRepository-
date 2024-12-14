@@ -30,6 +30,7 @@ namespace _5._TeamWorkProjects
 				if (!isCreated)
 				{
 					teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
+					joining.Add(new JoiningUser { User = teamCreation[0], TeamName = teamCreation[1] });
 
 					Console.WriteLine($"Team {teamName} has been created by {user}!");
 				}
@@ -77,9 +78,31 @@ namespace _5._TeamWorkProjects
 						break;
 					}
 				}
+			}
 
+			bool isCreator = false;
 
+			foreach (var newTeam in teams)
+			{
+				isCreator = false;
+				Console.WriteLine(newTeam.TeamName);
+				foreach (var newUser in joining)
+				{
+					if (newUser.TeamName == newTeam.TeamName && isCreator == false)
+					{
+						isCreator = true;
+						Console.WriteLine($"-{newUser.User}");
+						continue;
+					}
 
+					if (isCreator)
+					{
+						if (newUser.TeamName == newTeam.TeamName)
+						{
+							Console.WriteLine($"--{newUser.User}");
+						}
+					}
+				}
 			}
 		}
 	}

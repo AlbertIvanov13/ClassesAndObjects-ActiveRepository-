@@ -20,7 +20,11 @@
 
             public List<Employee> Employees { get; set; }
 
-
+			void AddEmployee(Employee employee)
+			{
+				employee.Name = "John";
+				
+			}
         }
 	}
 }

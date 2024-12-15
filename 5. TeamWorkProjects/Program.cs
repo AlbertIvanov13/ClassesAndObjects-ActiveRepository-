@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Numerics;
+using System.Security.Cryptography;
 
 namespace _5._TeamWorkProjects
 {
@@ -7,44 +9,44 @@ namespace _5._TeamWorkProjects
 	{
 		static void Main(string[] args)
 		{
-			int registeredTeamCount = int.Parse(Console.ReadLine());
+			int teamsCount = int.Parse(Console.ReadLine());
 
-			CreatingTeam team = new CreatingTeam();
-			JoiningUser join = new JoiningUser();
+			List<Team> teams = new List<Team>();
+			List<string> creators = new List<string>();
+			List<string> members = new List<string>();
 
-			List<CreatingTeam> teams = new List<CreatingTeam>();
-			List<JoiningUser> joining = new List<JoiningUser>();
-
-			for (int i = 0; i < registeredTeamCount; i++)
+			for (int i = 0; i < teamsCount; i++)
 			{
-				string[] teamCreation = { };
+				string[] input = Console.ReadLine().Split("-").ToArray();
 
-				teamCreation = Console.ReadLine().Split("-").ToArray();
-				string user = teamCreation[0];
-				string teamName = teamCreation[1];
+				string name = input[0];
+				string team = input[1];
+				creators.Add(name);
 
-				bool isCreated = teams.Select(x => x.TeamName).Contains(teamName);
+				bool isTeamExisting = teams.Select(x => x.TeamName).Contains(team);
 
-				bool isUserExisting = teams.Any(x => x.User == user);
+				bool isCreatorExisting = teams.Any(x => x.Name == name);
 
-				if (!isCreated)
+				if (!isTeamExisting && !isCreatorExisting)
 				{
-					teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
-					joining.Add(new JoiningUser { User = teamCreation[0], TeamName = teamCreation[1] });
+					Team newTeam = (new Team { Name = name, TeamName = team});
 
-					Console.WriteLine($"Team {teamName} has been created by {user}!");
+					teams.Add(newTeam);
+
+                    Console.WriteLine($"Team {team} has been created by {name}!");
 				}
-
-				if (isCreated)
+				else if (isTeamExisting)
 				{
-					Console.WriteLine($"Team {teamName} was already created!");
+                    Console.WriteLine($"Team {team} was already created!");
+				}
+				else if (isCreatorExisting)
+				{
+                    Console.WriteLine($"{name} cannot create another team!");
 				}
 			}
 
 			while (true)
 			{
-				string[] newArray = { };
-
 				string input = Console.ReadLine();
 
 				if (input == "end of assignment")
@@ -52,90 +54,27 @@ namespace _5._TeamWorkProjects
 					break;
 				}
 
-				newArray = input.Split("->").ToArray();
+				string[] newInput = input.Split("->").ToArray();
 
-				string newUser = newArray[0];
-				string newTeamName = newArray[1];
+				string userToJoin = newInput[0];
+				string teamToJoin = newInput[1];
 
-				for (int i = 0; i < teams.Count; i++)
+				bool isTeamExisting = teams.Any(x => x.TeamName == teamToJoin);
+
+				bool isCreatorExisting = teams.Any(x => x.Name == userToJoin);
+
+				if (isTeamExisting && !isCreatorExisting)
 				{
-					bool isTeamExisting = teams.Select(x => x.TeamName).Contains(newTeamName);
-					bool isCreatorExisting = teams.Select(x => x.User).Contains(newUser);
 
-					if (!isTeamExisting)
-					{
-						Console.WriteLine($"Team {newTeamName} does not exist!");
-						break;
-					}
-					else if (isCreatorExisting)
-					{
-						Console.WriteLine($"Member {newUser} cannot join team {newTeamName}!");
-						break;
-					}
-					else
-					{
-						joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
-						break;
-					}
 				}
 			}
-
-			bool isCreator = false;
-
-			List<string> orderingTeams = new List<string>();
-			List<string> newUsers = new List<string>();
-
-			foreach (var newTeam in teams)
-			{
-				newUsers = new List<string>();
-				isCreator = false;
-				//if ()
-				//{
-
-				//}
-				Console.WriteLine(newTeam.TeamName);
-				foreach (var newUser in joining)
-				{
-					if (newUser.TeamName == newTeam.TeamName && isCreator == false)
-					{
-						isCreator = true;
-						Console.WriteLine($"- {newUser.User}");
-						continue;
-					}
-
-					if (isCreator)
-					{
-						if (newUser.TeamName == newTeam.TeamName)
-						{
-							newUsers.Add(newUser.User);
-						}
-					}
-				}
-				var orderedUserNames = newUsers.OrderBy(x => newUsers[0]).ToList();
-				foreach (var user in orderedUserNames)
-				{
-					Console.WriteLine($"-- {user}");
-				}
-			}
-
-			Console.WriteLine("Teams to disband: ");
 		}
-	}
 
-	public class CreatingTeam
-	{
-		public string User { get; set; }
-		public string TeamName { get; set; }
-
-		public override string ToString()
+		public class Team
 		{
-			return $"Team {TeamName} has been created by {User}!";
+			public string Name { get; set; }
+			public string TeamName { get; set; }
+			//public List<string> Members { get; set; }
 		}
-	}
-
-	public class JoiningUser
-	{
-		public string User { get; set; }
-		public string TeamName { get; set; }
 	}
 }

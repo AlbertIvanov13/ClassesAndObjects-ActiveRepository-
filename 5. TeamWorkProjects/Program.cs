@@ -89,6 +89,10 @@ namespace _5._TeamWorkProjects
 			{
 				newUsers = new List<string>();
 				isCreator = false;
+				//if ()
+				//{
+
+				//}
 				Console.WriteLine(newTeam.TeamName);
 				foreach (var newUser in joining)
 				{
@@ -114,7 +118,7 @@ namespace _5._TeamWorkProjects
 				}
 			}
 
-            Console.WriteLine("Teams to disband: ");
+			Console.WriteLine("Teams to disband: ");
 		}
 	}
 

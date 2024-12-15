@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01. AdvertisementMessage", "01. AdvertisementMessage\01. AdvertisementMessage.csproj", "{512FD265-B563-4F8E-B2CE-A8BA5623D9F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. AdvertisementMessage", "01. AdvertisementMessage\01. AdvertisementMessage.csproj", "{512FD265-B563-4F8E-B2CE-A8BA5623D9F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. DogClass", "02. DogClass\02. DogClass.csproj", "{A723B778-A6DC-4A4A-B147-1AA686122F9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. DogClass", "02. DogClass\02. DogClass.csproj", "{A723B778-A6DC-4A4A-B147-1AA686122F9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. OrderByAge", "03. OrderByAge\03. OrderByAge.csproj", "{6B1A22B0-EFA5-4086-BEEB-94823C5E1A9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03. OrderByAge", "03. OrderByAge\03. OrderByAge.csproj", "{6B1A22B0-EFA5-4086-BEEB-94823C5E1A9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Students", "04. Students\04. Students.csproj", "{D956B703-796D-4FEF-8832-EE9D00C9AF09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04. Students", "04. Students\04. Students.csproj", "{D956B703-796D-4FEF-8832-EE9D00C9AF09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "6.VehicleCatalogue", "6.VehicleCatalogue\6.VehicleCatalogue.csproj", "{48B4DCDD-7462-4E5E-82C8-1C3C410DB9DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6.VehicleCatalogue", "6.VehicleCatalogue\6.VehicleCatalogue.csproj", "{48B4DCDD-7462-4E5E-82C8-1C3C410DB9DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5. TeamWorkProjects", "5. TeamWorkProjects\5. TeamWorkProjects.csproj", "{667E6E02-4E95-44A4-BB04-3C1E54A6BF0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "5. TeamWorkProjects", "5. TeamWorkProjects\5. TeamWorkProjects.csproj", "{667E6E02-4E95-44A4-BB04-3C1E54A6BF0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7. Employee Management System", "7. Employee Management System\7. Employee Management System.csproj", "{B8BF8931-B06D-4AEF-ACA3-63E982B2A105}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{667E6E02-4E95-44A4-BB04-3C1E54A6BF0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{667E6E02-4E95-44A4-BB04-3C1E54A6BF0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{667E6E02-4E95-44A4-BB04-3C1E54A6BF0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8BF8931-B06D-4AEF-ACA3-63E982B2A105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8BF8931-B06D-4AEF-ACA3-63E982B2A105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8BF8931-B06D-4AEF-ACA3-63E982B2A105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8BF8931-B06D-4AEF-ACA3-63E982B2A105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

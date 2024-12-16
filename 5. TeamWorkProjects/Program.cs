@@ -43,7 +43,7 @@ namespace _5._TeamWorkProjects
 				}
 			}
 
-			List<string> teamsToDisband = new List<string>();
+			List<JoiningUser> teamsToDisband = new List<JoiningUser>();
 
 			bool isDisband = true;
 
@@ -68,6 +68,7 @@ namespace _5._TeamWorkProjects
 					bool isTeamExisting = teams.Select(x => x.TeamName).Contains(newTeamName);
 					bool isCreatorExisting = teams.Select(x => x.User).Contains(newUser);
 
+					isDisband = true;
 					if (!isTeamExisting)
 					{
 						Console.WriteLine($"Team {newTeamName} does not exist!");
@@ -76,22 +77,30 @@ namespace _5._TeamWorkProjects
 					else if (isCreatorExisting)
 					{
 						Console.WriteLine($"Member {newUser} cannot join team {newTeamName}!");
+						foreach (var item in teams)
+						{
+							if (teams.Contains(item) && isDisband == true)
+							{
+								teamsToDisband.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
+								break;
+							}
+						}
 						break;
 					}
 					else
 					{
 						foreach (var item in teams)
 						{
-							isDisband = true;
-							if (item.TeamName == newTeamName)
+							if (teams.Contains(item) && isDisband == true)
 							{
 								joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
 								isDisband = false;
+								break;
 							}
-							//else if (item.TeamName != newTeamName && isDisband == true)
-							//{
-							//	teamsToDisband.Add(item.TeamName);
-							//}
+							else if (!teams.Contains(item) && isDisband == false)
+							{
+								teamsToDisband.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
+							}
 						}
 						break;
 					}
@@ -114,6 +123,7 @@ namespace _5._TeamWorkProjects
 					if (item.TeamName == newTeam.TeamName)
 					{
 						isTrue = true;
+						
 						Console.WriteLine(newTeam.TeamName);
 						break;
 					}
@@ -141,7 +151,7 @@ namespace _5._TeamWorkProjects
 			Console.WriteLine("Teams to disband: ");
 			foreach (var teamToDisband in teamsToDisband)
 			{
-                Console.WriteLine(teamToDisband);
+                Console.WriteLine(teamToDisband.TeamName);
 			}
 		}
 	}

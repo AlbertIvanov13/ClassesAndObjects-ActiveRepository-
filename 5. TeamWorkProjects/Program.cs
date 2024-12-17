@@ -82,34 +82,45 @@ namespace _5._TeamWorkProjects
 						var sortedByName = names.OrderByDescending(t => t.User).ToList();
 						foreach (var teamName in sortedByName)
 						{
-							Console.WriteLine(teamName.TeamName);
-							foreach (var creator in names)
+							foreach (var newName in joining)
 							{
-								if (creator.User == teamName.User)
+								if (newName.TeamName == teamName.TeamName)
 								{
-									foreach (var name in names)
+									Console.WriteLine(teamName.TeamName);
+									foreach (var creator in names)
 									{
-										if (creator.TeamName == name.TeamName)
+										if (creator.User == teamName.User)
 										{
-											Console.WriteLine($"- {name.User}");
+											foreach (var name in names)
+											{
+												if (creator.TeamName == name.TeamName)
+												{
+													Console.WriteLine($"- {name.User}");
+													break;
+												}
+											}
+											var orderedUserNames = joining.OrderBy(x => joining[0]).ToList();
+											foreach (var user in orderedUserNames)
+											{
+												foreach (var newUser in orderedUserNames)
+												{
+													if (creator.TeamName == newUser.TeamName)
+													{
+														Console.WriteLine($"-- {newUser.User}");
+													}
+												}
+												break;
+											}
 											break;
 										}
-									}
-									var orderedUserNames = joining.OrderBy(x => joining[0]).ToList();
-									foreach (var user in orderedUserNames)
-									{
-										foreach (var newUser in orderedUserNames)
-										{
-											if (creator.TeamName == newUser.TeamName)
-											{
-												Console.WriteLine($"-- {newUser.User}");
-											}
-										}
-										break;
+										continue;
 									}
 									break;
 								}
-								continue;
+								else
+								{
+									continue;
+								}
 							}
 						}
 						break;
@@ -118,7 +129,7 @@ namespace _5._TeamWorkProjects
 				}
 			}
 
-			Console.WriteLine("Teams to disband: ");
+			Console.WriteLine("Teams to disband:");
 			foreach (var teamToDisband in teamsToDisband)
 			{
 				Console.WriteLine(teamToDisband.TeamName);

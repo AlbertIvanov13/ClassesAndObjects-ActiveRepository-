@@ -9,11 +9,8 @@ namespace _5._TeamWorkProjects
 		{
 			int registeredTeamCount = int.Parse(Console.ReadLine());
 
-			CreatingTeam team = new CreatingTeam();
-			JoiningUser join = new JoiningUser();
-
 			List<CreatingTeam> teams = new List<CreatingTeam>();
-			List<JoiningUser> joining = new List<JoiningUser>();
+			List<CreatingTeam> joining = new List<CreatingTeam>();
 
 			List<JoiningUser> names = new List<JoiningUser>();
 
@@ -43,7 +40,7 @@ namespace _5._TeamWorkProjects
 				}
 			}
 
-			List<JoiningUser> teamsToDisband = new List<JoiningUser>();
+			List<CreatingTeam> teamsToDisband = new List<CreatingTeam>();
 
 			bool isDisband = true;
 
@@ -65,93 +62,66 @@ namespace _5._TeamWorkProjects
 
 				for (int i = 0; i < teams.Count; i++)
 				{
-					bool isTeamExisting = teams.Select(x => x.TeamName).Contains(newTeamName);
-					bool isCreatorExisting = teams.Select(x => x.User).Contains(newUser);
-
-					isDisband = true;
-					if (!isTeamExisting)
+					if (teams[i].TeamName == newTeamName && newUser != teams[i].User)
 					{
-						Console.WriteLine($"Team {newTeamName} does not exist!");
-						break;
+						joining.Add(new CreatingTeam { User = newArray[0], TeamName = newArray[1] });
 					}
-					else if (isCreatorExisting)
+					else if (teams[i].TeamName == newTeamName && newUser == teams[i].User)
 					{
-						Console.WriteLine($"Member {newUser} cannot join team {newTeamName}!");
-						foreach (var item in teams)
-						{
-							if (teams.Contains(item) && isDisband == true)
-							{
-								teamsToDisband.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
-								break;
-							}
-						}
-						break;
-					}
-					else
-					{
-						foreach (var item in teams)
-						{
-							if (teams.Contains(item) && isDisband == true)
-							{
-								joining.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
-								isDisband = false;
-								break;
-							}
-							else if (!teams.Contains(item) && isDisband == false)
-							{
-								teamsToDisband.Add(new JoiningUser { User = newArray[0], TeamName = newArray[1] });
-							}
-						}
-						break;
+						teamsToDisband.Add(teams[i]);
 					}
 				}
 			}
 
-			bool isCreator = false;
-
-			List<string> orderingTeams = new List<string>();
-			List<string> newUsers = new List<string>();
-
-			bool isTrue = true;
-
-			foreach (var newTeam in teams)
+			foreach (var newTeam in names)
 			{
-				newUsers = new List<string>();
-				isCreator = false;
 				foreach (var item in joining)
 				{
-					if (item.TeamName == newTeam.TeamName)
+					if (newTeam.TeamName == item.TeamName)
 					{
-						isTrue = true;
-						
-						Console.WriteLine(newTeam.TeamName);
-						break;
-					}
-				}
-				foreach (var creator in joining)
-				{
-					if (creator.TeamName == newTeam.TeamName)
-					{
-						isTrue = false;
-						isCreator = true;
-						Console.WriteLine($"- {newTeam.User}");
-						var orderedUserNames = joining.OrderBy(x => joining[0]).ToList();
-						foreach (var user in orderedUserNames)
+						var sortedByName = names.OrderByDescending(t => t.User).ToList();
+						foreach (var teamName in sortedByName)
 						{
-							if (user.TeamName == creator.TeamName)
+							Console.WriteLine(teamName.TeamName);
+							foreach (var creator in names)
 							{
-								Console.WriteLine($"-- {user.User}");
+								if (creator.User == teamName.User)
+								{
+									foreach (var name in names)
+									{
+										if (creator.TeamName == name.TeamName)
+										{
+											Console.WriteLine($"- {name.User}");
+											break;
+										}
+									}
+									var orderedUserNames = joining.OrderBy(x => joining[0]).ToList();
+									foreach (var user in orderedUserNames)
+									{
+										foreach (var newUser in orderedUserNames)
+										{
+											if (creator.TeamName == newUser.TeamName)
+											{
+												Console.WriteLine($"-- {newUser.User}");
+											}
+										}
+										break;
+									}
+									break;
+								}
+								continue;
 							}
 						}
 						break;
 					}
+					break;
 				}
 			}
 
 			Console.WriteLine("Teams to disband: ");
 			foreach (var teamToDisband in teamsToDisband)
 			{
-                Console.WriteLine(teamToDisband.TeamName);
+				Console.WriteLine(teamToDisband.TeamName);
 			}
 		}
 	}

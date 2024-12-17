@@ -82,6 +82,20 @@ namespace _5._TeamWorkProjects
 						Console.WriteLine($"Member {newUser} cannot join team {teams[i].TeamName}");
 						teamsToDisband.Add(teams[i]);
 					}
+					else
+					{
+						bool isTeamExisting = teams.Select(x => x.TeamName).Contains(newTeamName);
+						if (!isTeamExisting)
+						{
+							Console.WriteLine($"Team {newTeamName} does not exist!");
+							break;
+						}
+						else
+						{
+							joining.Add(new CreatingTeam { User = newArray[0], TeamName = newArray[1] });
+							break;
+						}
+					}
 				}
 			}
 

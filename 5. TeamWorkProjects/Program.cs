@@ -25,6 +25,7 @@ namespace _5._TeamWorkProjects
 				bool isCreated = teams.Select(x => x.TeamName).Contains(teamName);
 
 				bool isUserExisting = teams.Any(x => x.User == user);
+				bool isTeamExisting = teams.Any(x => x.TeamName == teamName);
 
 				if (!isCreated)
 				{
@@ -64,10 +65,21 @@ namespace _5._TeamWorkProjects
 				{
 					if (teams[i].TeamName == newTeamName && newUser != teams[i].User)
 					{
-						joining.Add(new CreatingTeam { User = newArray[0], TeamName = newArray[1] });
+						bool isTeamExisting = teams.Select(x => x.TeamName).Contains(newTeamName);
+						if (!isTeamExisting)
+						{
+							Console.WriteLine($"Team {newTeamName} does not exist!");
+							break;
+						}
+						else
+						{
+							joining.Add(new CreatingTeam { User = newArray[0], TeamName = newArray[1] });
+							break;
+						}
 					}
 					else if (teams[i].TeamName == newTeamName && newUser == teams[i].User)
 					{
+						Console.WriteLine($"Member {newUser} cannot join team {teams[i].TeamName}");
 						teamsToDisband.Add(teams[i]);
 					}
 				}

@@ -42,8 +42,11 @@ namespace _5._TeamWorkProjects
 			}
 
 			List<CreatingTeam> teamsToDisband = new List<CreatingTeam>();
+			List<CreatingTeam> users = new List<CreatingTeam>();
 
 			bool isDisband = true;
+
+			int counter = 0;
 
 			while (true)
 			{
@@ -74,12 +77,13 @@ namespace _5._TeamWorkProjects
 						else
 						{
 							joining.Add(new CreatingTeam { User = newArray[0], TeamName = newArray[1] });
+							users.Add(teams[i]);
 							break;
 						}
 					}
 					else if (teams[i].TeamName == newTeamName && newUser == teams[i].User)
 					{
-						Console.WriteLine($"Member {newUser} cannot join team {teams[i].TeamName}");
+						Console.WriteLine($"Member {newUser} cannot join team {teams[i].TeamName}!");
 						teamsToDisband.Add(teams[i]);
 					}
 					else
@@ -88,11 +92,6 @@ namespace _5._TeamWorkProjects
 						if (!isTeamExisting)
 						{
 							Console.WriteLine($"Team {newTeamName} does not exist!");
-							break;
-						}
-						else
-						{
-							joining.Add(new CreatingTeam { User = newArray[0], TeamName = newArray[1] });
 							break;
 						}
 					}
@@ -156,7 +155,8 @@ namespace _5._TeamWorkProjects
 			}
 
 			Console.WriteLine("Teams to disband:");
-			foreach (var teamToDisband in teamsToDisband)
+			var orderedTeamsToDisband = teamsToDisband.OrderBy(x => x.TeamName).ToList();
+			foreach (var teamToDisband in orderedTeamsToDisband)
 			{
 				Console.WriteLine(teamToDisband.TeamName);
 			}
@@ -167,7 +167,6 @@ namespace _5._TeamWorkProjects
 	{
 		public string User { get; set; }
 		public string TeamName { get; set; }
-
 		public override string ToString()
 		{
 			return $"Team {TeamName} has been created by {User}!";

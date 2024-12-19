@@ -120,6 +120,7 @@ namespace _5._TeamWorkProjects
 					{
 						Console.WriteLine($"-- {user}");
 					}
+					break;
 				}
 			}
 

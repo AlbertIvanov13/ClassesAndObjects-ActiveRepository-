@@ -9,8 +9,6 @@ namespace _5._TeamWorkProjects
 		{
 			int registeredTeamCount = int.Parse(Console.ReadLine());
 
-			CreatingTeam team = new CreatingTeam();
-
 			List<CreatingTeam> teams = new List<CreatingTeam>();
 
 			List<CreatingTeam> teamsToDisband = new List<CreatingTeam>();
@@ -45,7 +43,7 @@ namespace _5._TeamWorkProjects
 			{
 				string[] newArray = { };
 
-				string input = Console.ReadLine();
+				string? input = Console.ReadLine();
 
 				if (input == "end of assignment")
 				{
@@ -59,7 +57,7 @@ namespace _5._TeamWorkProjects
 
 				for (int i = 0; i < teams.Count; i++)
 				{
-					if (teams[i].TeamName == newTeamName && newUser != teams[i].User)
+					if (teams[i].TeamName == newTeamName && teams[i].User != newUser)
 					{
 						bool isTeamExisting = teams.Select(x => x.TeamName).Contains(newTeamName);
 						if (!isTeamExisting)
@@ -81,7 +79,7 @@ namespace _5._TeamWorkProjects
 					else if (teams[i].TeamName == newTeamName && newUser == teams[i].User)
 					{
 						Console.WriteLine($"Member {newUser} cannot join team {teams[i].TeamName}!");
-						teamsToDisband.Add(teams[i]);
+						//teamsToDisband.Add(teams[i]);
 					}
 					else
 					{
@@ -112,7 +110,7 @@ namespace _5._TeamWorkProjects
 			}
 
 			Console.WriteLine("Teams to disband:");
-			var orderedTeamsToDisband = teamsToDisband.OrderBy(x => x.TeamName).ToList();
+			var orderedTeamsToDisband = teams.OrderBy(x => x.TeamName).Where(x => x.Members.Count < 1).ToList();
 			foreach (var teamToDisband in orderedTeamsToDisband)
 			{
 				Console.WriteLine(teamToDisband.TeamName);

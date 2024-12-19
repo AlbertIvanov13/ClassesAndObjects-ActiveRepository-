@@ -14,7 +14,8 @@ namespace _5._TeamWorkProjects
 			List<CreatingTeam> teams = new List<CreatingTeam>();
 			List<CreatingTeam> joining = new List<CreatingTeam>();
 
-			List<JoiningUser> names = new List<JoiningUser>();
+			List<string> newList = new List<string>();
+			List<string> newMembers = new List<string>();
 
 			for (int i = 0; i < registeredTeamCount; i++)
 			{
@@ -31,9 +32,11 @@ namespace _5._TeamWorkProjects
 
 				if (!isCreated)
 				{
+					List<CreatingTeam> newerList = new List<CreatingTeam>();
+					teams.AddRange(newerList);
 					teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
-					names.Add(new JoiningUser { User = teamCreation[0], TeamName = teamCreation[1] });
-					team.Members.Add(teamCreation[0]);
+					List<CreatingTeam> newTeam = new List<CreatingTeam>();
+					team.Members.Add(teamCreation[1]);
 
 					Console.WriteLine($"Team {teamName} has been created by {user}!");
 				}
@@ -79,9 +82,28 @@ namespace _5._TeamWorkProjects
 						}
 						else
 						{
-							joining.Add(new CreatingTeam { User = newArray[0], TeamName = newArray[1] });
-							users.Add(teams[i]);
-							break;
+							foreach (var item in teams)
+							{
+								if (item.TeamName == newTeamName)
+								{
+									item.Members.Add(newUser);
+								}
+							}
+							//for (int j = 0; j < newList.Count; j++)
+							//{
+							//	//if (newList[j] == newTeamName)
+							//	//{
+							//	//	List<string> members = new List<string>();
+							//	//	members.Add(teams[i].TeamName);
+							//	//	foreach (string member in newMembers)
+							//	//	{
+							//	//		newMembers.Add(newUser);
+							//	//	}
+							//	//	//joining.Add(new CreatingTeam { User = newArray[0], TeamName = newArray[1] });
+							//	//	//users.Add(teams[i]);
+							//	//	break;
+							//	//}
+							//}
 						}
 					}
 					else if (teams[i].TeamName == newTeamName && newUser == teams[i].User)
@@ -177,6 +199,17 @@ namespace _5._TeamWorkProjects
 			//		break;
 			//	}
 			//}
+
+			var orderedTeams = teams.OrderByDescending(x => x.Members.Count).ThenBy(x => x.TeamName).Where(x => x.Members.Count > 0).ToList();
+			foreach (var newTeam in orderedTeams)
+			{
+				Console.WriteLine(newTeam.TeamName);
+				Console.WriteLine($"- {newTeam.User}");
+				for (int i = 0; i < newTeam.Members.Count; i++)
+				{
+					Console.WriteLine($"-- {newTeam.Members[i]}");
+				}
+			}
 
 			Console.WriteLine("Teams to disband:");
 			var orderedTeamsToDisband = teamsToDisband.OrderBy(x => x.TeamName).ToList();

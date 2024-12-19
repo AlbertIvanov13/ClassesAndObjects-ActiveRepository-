@@ -13,8 +13,7 @@ namespace _5._TeamWorkProjects
 
 			List<CreatingTeam> teams = new List<CreatingTeam>();
 
-			List<string> newList = new List<string>();
-			List<string> newMembers = new List<string>();
+			List<CreatingTeam> teamsToDisband = new List<CreatingTeam>();
 
 			for (int i = 0; i < registeredTeamCount; i++)
 			{
@@ -31,11 +30,7 @@ namespace _5._TeamWorkProjects
 
 				if (!isCreated)
 				{
-					List<CreatingTeam> newerList = new List<CreatingTeam>();
-					teams.AddRange(newerList);
 					teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
-					List<CreatingTeam> newTeam = new List<CreatingTeam>();
-					team.Members.Add(teamCreation[1]);
 
 					Console.WriteLine($"Team {teamName} has been created by {user}!");
 				}
@@ -46,7 +41,6 @@ namespace _5._TeamWorkProjects
 				}
 			}
 
-			List<CreatingTeam> teamsToDisband = new List<CreatingTeam>();
 			while (true)
 			{
 				string[] newArray = { };

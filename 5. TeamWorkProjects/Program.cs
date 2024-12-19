@@ -12,7 +12,6 @@ namespace _5._TeamWorkProjects
 			CreatingTeam team = new CreatingTeam();
 
 			List<CreatingTeam> teams = new List<CreatingTeam>();
-			List<CreatingTeam> joining = new List<CreatingTeam>();
 
 			List<string> newList = new List<string>();
 			List<string> newMembers = new List<string>();
@@ -48,12 +47,6 @@ namespace _5._TeamWorkProjects
 			}
 
 			List<CreatingTeam> teamsToDisband = new List<CreatingTeam>();
-			List<CreatingTeam> users = new List<CreatingTeam>();
-
-			bool isDisband = true;
-
-			int counter = 0;
-
 			while (true)
 			{
 				string[] newArray = { };
@@ -113,7 +106,7 @@ namespace _5._TeamWorkProjects
 			{
 				Console.WriteLine(newTeam.TeamName);
 				Console.WriteLine($"- {newTeam.User}");
-				for (int i = 0; i < newTeam.Members.Count; i++)
+				for (int i = 0; i < newTeam.Members.Count;)
 				{
 					var orderedUsers = newTeam.Members.OrderBy(x => x).ToList();
 					foreach (var user in orderedUsers)
@@ -147,11 +140,5 @@ namespace _5._TeamWorkProjects
 		{
 			return $"Team {TeamName} has been created by {User}!";
 		}
-	}
-
-	public class JoiningUser
-	{
-		public string User { get; set; }
-		public string TeamName { get; set; }
 	}
 }

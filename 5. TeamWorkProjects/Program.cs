@@ -9,6 +9,8 @@ namespace _5._TeamWorkProjects
 		{
 			int registeredTeamCount = int.Parse(Console.ReadLine());
 
+			CreatingTeam team = new CreatingTeam();
+
 			List<CreatingTeam> teams = new List<CreatingTeam>();
 			List<CreatingTeam> joining = new List<CreatingTeam>();
 
@@ -31,6 +33,7 @@ namespace _5._TeamWorkProjects
 				{
 					teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
 					names.Add(new JoiningUser { User = teamCreation[0], TeamName = teamCreation[1] });
+					team.Members.Add(teamCreation[0]);
 
 					Console.WriteLine($"Team {teamName} has been created by {user}!");
 				}
@@ -98,61 +101,82 @@ namespace _5._TeamWorkProjects
 				}
 			}
 
-			foreach (var newTeam in names)
-			{
-				foreach (var item in joining)
-				{
-					if (newTeam.TeamName == item.TeamName)
-					{
-						var sortedByName = names.OrderByDescending(t => t.User).ToList();
-						foreach (var teamName in sortedByName)
-						{
-							foreach (var newName in joining)
-							{
-								if (newName.TeamName == teamName.TeamName)
-								{
-									Console.WriteLine(teamName.TeamName);
-									foreach (var creator in names)
-									{
-										if (creator.User == teamName.User)
-										{
-											foreach (var name in names)
-											{
-												if (creator.TeamName == name.TeamName)
-												{
-													Console.WriteLine($"- {name.User}");
-													break;
-												}
-											}
-											var orderedUserNames = joining.OrderBy(x => joining[0]).ToList();
-											foreach (var user in orderedUserNames)
-											{
-												foreach (var newUser in orderedUserNames)
-												{
-													if (creator.TeamName == newUser.TeamName)
-													{
-														Console.WriteLine($"-- {newUser.User}");
-													}
-												}
-												break;
-											}
-											break;
-										}
-										continue;
-									}
-									break;
-								}
-								else
-								{
-									continue;
-								}
-							}
-						}
-						break;
-					}
-					break;
-				}
-			}
+			//var groupedTeams = joining.GroupBy(x => x.TeamName).ToList();
+
+			//foreach (var groupedTeam in groupedTeams)
+			//{
+			//             Console.WriteLine($"{groupedTeam.Key}");
+			//	foreach (var newTeam in names)
+			//	{
+			//		if (groupedTeam.Key == newTeam.TeamName)
+			//		{
+			//			Console.WriteLine($"- { newTeam.User}");
+			//			foreach (var newUser in joining)
+			//			{
+			//				if (newUser.TeamName == newTeam.TeamName)
+			//				{
+			//					Console.WriteLine($"-- {newUser.User}");
+			//				}
+			//			}
+			//		}
+			//	}
+			//}
+
+			//foreach (var newTeam in names)
+			//{
+			//	foreach (var item in joining)
+			//	{
+			//		if (newTeam.TeamName == item.TeamName)
+			//		{
+			//			var sortedByName = names.OrderByDescending(t => t.User).ToList();
+			//			foreach (var teamName in sortedByName)
+			//			{
+			//				foreach (var newName in joining)
+			//				{
+			//					if (newName.TeamName == teamName.TeamName)
+			//					{
+			//						Console.WriteLine(teamName.TeamName);
+			//						foreach (var creator in names)
+			//						{
+			//							if (creator.User == teamName.User)
+			//							{
+			//								foreach (var name in names)
+			//								{
+			//									if (creator.TeamName == name.TeamName)
+			//									{
+			//										Console.WriteLine($"- {name.User}");
+			//										break;
+			//									}
+			//								}
+			//								var orderedUserNames = joining.OrderBy(x => joining[0]).ToList();
+			//								foreach (var user in orderedUserNames)
+			//								{
+			//									foreach (var newUser in orderedUserNames)
+			//									{
+			//										if (creator.TeamName == newUser.TeamName)
+			//										{
+			//											Console.WriteLine($"-- {newUser.User}");
+			//										}
+			//									}
+			//									break;
+			//								}
+			//								break;
+			//							}
+			//							continue;
+			//						}
+			//						break;
+			//					}
+			//					else
+			//					{
+			//						continue;
+			//					}
+			//				}
+			//			}
+			//			break;
+			//		}
+			//		break;
+			//	}
+			//}
 
 			Console.WriteLine("Teams to disband:");
 			var orderedTeamsToDisband = teamsToDisband.OrderBy(x => x.TeamName).ToList();
@@ -167,6 +191,12 @@ namespace _5._TeamWorkProjects
 	{
 		public string User { get; set; }
 		public string TeamName { get; set; }
+		public List<string> Members { get; set; }
+
+		public CreatingTeam()
+		{
+			Members = new List<string>();
+		}
 		public override string ToString()
 		{
 			return $"Team {TeamName} has been created by {User}!";

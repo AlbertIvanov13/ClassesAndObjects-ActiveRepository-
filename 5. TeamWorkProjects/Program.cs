@@ -66,6 +66,7 @@ namespace _5._TeamWorkProjects
 					if (teams[i].TeamName == newTeamName && teams[i].User != newUser)
 					{
 						bool isTeamExisting = teams.Select(x => x.TeamName).Contains(newTeamName);
+						bool isUserExisting = teams.Any(x => x.Members.Contains(newUser));
 						if (!isTeamExisting)
 						{
 							Console.WriteLine($"Team {newTeamName} does not exist!");
@@ -77,7 +78,14 @@ namespace _5._TeamWorkProjects
 							{
 								if (item.TeamName == newTeamName)
 								{
-									item.Members.Add(newUser);
+									if (isUserExisting)
+									{
+										Console.WriteLine($"Member {newUser} cannot join team {newTeamName}!");
+									}
+									else
+									{
+										item.Members.Add(newUser);
+									}
 								}
 							}
 						}
@@ -85,6 +93,7 @@ namespace _5._TeamWorkProjects
 					else if (teams[i].TeamName == newTeamName && newUser == teams[i].User)
 					{
 						Console.WriteLine($"Member {newUser} cannot join team {teams[i].TeamName}!");
+						break;
 					}
 					else
 					{

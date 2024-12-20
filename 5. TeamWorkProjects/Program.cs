@@ -28,14 +28,13 @@ namespace _5._TeamWorkProjects
 
 				if (!isCreated)
 				{
-					teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
-
 					if (isUserExisting)
 					{
 						Console.WriteLine($"{user} cannot create another team!");
 					}
 					else
 					{
+						teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
 						Console.WriteLine($"Team {teamName} has been created by {user}!");
 					}
 				}

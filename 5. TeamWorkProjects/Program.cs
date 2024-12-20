@@ -30,7 +30,14 @@ namespace _5._TeamWorkProjects
 				{
 					teams.Add(new CreatingTeam { User = teamCreation[0], TeamName = teamCreation[1] });
 
-					Console.WriteLine($"Team {teamName} has been created by {user}!");
+					if (isUserExisting)
+					{
+						Console.WriteLine($"{user} cannot create another team!");
+					}
+					else
+					{
+						Console.WriteLine($"Team {teamName} has been created by {user}!");
+					}
 				}
 
 				if (isCreated)
@@ -79,7 +86,6 @@ namespace _5._TeamWorkProjects
 					else if (teams[i].TeamName == newTeamName && newUser == teams[i].User)
 					{
 						Console.WriteLine($"Member {newUser} cannot join team {teams[i].TeamName}!");
-						//teamsToDisband.Add(teams[i]);
 					}
 					else
 					{

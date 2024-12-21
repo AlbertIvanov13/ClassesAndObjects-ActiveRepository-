@@ -5,16 +5,10 @@
 		static void Main(string[] args)
 		{
 			Department department = new Department();
-			Employee employee = new Employee("John", 1, Convert.ToDecimal(75.000), "IT");
+			Employee employee1 = new Employee("John", 1, Convert.ToDecimal(70.000), "IT");
+			department.AddEmployee(employee1);
 
-			department.Employees.Add(employee);
-			for (int i = 0; i < department.Employees.Count; i++)
-			{
-				Console.Write(employee.Name + " ");
-				Console.Write(employee.Id + " ");
-				Console.Write($"{employee.Salary:f3}" + " ");
-				Console.Write(employee.Department);
-			}
+			department.DisplayEmployees();
 		}
 
 		public class Employee
@@ -59,7 +53,26 @@
 
 			public void DisplayEmployees()
 			{
-
+				List<string> departments = new List<string> { "IT", "HR" };
+				decimal totalSalary = 0;
+				foreach (var dep in departments)
+				{
+					totalSalary = 0;
+					Console.WriteLine($"Employees in {dep} department:");
+					foreach (Employee employee in Employees)
+					{
+						if (dep == employee.Department)
+						{
+							Console.WriteLine($"Name: {employee.Name}, " +
+							$"ID: {employee.Id}, " +
+							$"Salary: ${employee.Salary:f3}, " +
+							$"Department: {employee.Department}");
+							totalSalary += Convert.ToDecimal(employee.Salary);
+						}
+					}
+					Console.WriteLine($"Total Salary for {dep} Department: ${totalSalary:f3}\n");
+					continue;
+				}
 			}
 		}
 	}

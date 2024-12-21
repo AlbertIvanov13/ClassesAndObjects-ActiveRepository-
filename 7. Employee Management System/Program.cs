@@ -7,6 +7,8 @@
 			Department department = new Department();
 			Employee employee1 = new Employee("John", 1, Convert.ToDecimal(70.000), "IT");
 			department.AddEmployee(employee1);
+			Employee employee2 = new Employee("Sarah", 2, Convert.ToDecimal(75.000), "IT");
+			department.AddEmployee(employee2);
 
 			department.DisplayEmployees();
 		}

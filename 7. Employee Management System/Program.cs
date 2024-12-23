@@ -9,6 +9,8 @@
 			department.AddEmployee(employee1);
 			Employee employee2 = new Employee("Sarah", 2, Convert.ToDecimal(75.000), "IT");
 			department.AddEmployee(employee2);
+			Employee employee3 = new Employee("Mike", 3, Convert.ToDecimal(60.000), "HR");
+			department.AddEmployee(employee3);
 
 			department.DisplayEmployees();
 		}
